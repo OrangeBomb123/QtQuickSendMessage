@@ -172,3 +172,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Project specific files
+start.bat
+build.bat
+unicode_version.build/
+unicode_version.dist/
+unicode_version.onefile-build/
+output/
+unicode_version.exe
+.trae/

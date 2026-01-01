@@ -6,6 +6,9 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -28,11 +31,17 @@ jobs:
     - name: Build with Nuitka
       run: |
         nuitka unicode_version.py --standalone --onefile --enable-plugin=pyqt6
+        dir
+    
+    - name: List files
+      run: |
+        dir
+        Get-ChildItem -Recurse
     
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
       with:
-        files: unicode_version.exe
+        files: .\unicode_version.exe
         draft: false
         prerelease: false
       env:

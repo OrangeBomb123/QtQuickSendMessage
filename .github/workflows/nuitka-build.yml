@@ -30,18 +30,24 @@ jobs:
     
     - name: Build with Nuitka
       run: |
-        nuitka unicode_version.py --standalone --onefile --enable-plugin=pyqt6
+        nuitka unicode_version.py --standalone --onefile --enable-plugin=pyqt6 --lto=no --verbose
         dir
+        echo "=== Nuitka Build Output ==="
+        Get-ChildItem -Name *.exe -Recurse
     
-    - name: List files
+    - name: List all files
       run: |
+        echo "=== Current Directory Files ==="
         dir
-        Get-ChildItem -Recurse
+        echo "=== All Files in Project ==="
+        Get-ChildItem -Recurse | Sort-Object FullName
     
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
       with:
-        files: .\unicode_version.exe
+        files: |
+          *.exe
+          **/*.exe
         draft: false
         prerelease: false
       env:
